@@ -1,0 +1,19 @@
+# .dockerignore
+# Production practice: Exclude everything that shouldn't be in the Docker build context.
+# Without this, Docker sends node_modules (100k+ files) to the daemon on every build.
+# This makes builds dramatically faster and prevents secrets from leaking into images.
+
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+README.md
+*.log
+.DS_Store
+.vscode
+PROJECT_GUIDE.txt
+BEST_PRACTICES.txt
+CONCEPTS_LEARNED.txt

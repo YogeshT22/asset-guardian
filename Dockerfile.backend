@@ -1,0 +1,14 @@
+# Dockerfile.backend
+# Builds a lean json-server image with json-server pre-installed.
+# This runs instantly — no npm install at container start time.
+
+FROM node:18-alpine
+
+# Install json-server + wget (used by Docker health check)
+RUN apk add --no-cache wget && npm install -g json-server
+
+WORKDIR /data
+
+EXPOSE 5000
+
+CMD ["json-server", "--watch", "db.json", "--port", "5000", "--host", "0.0.0.0"]

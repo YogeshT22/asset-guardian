@@ -1,0 +1,67 @@
+# docker-compose.yml
+#
+# 1. restart: unless-stopped  - containers auto-recover from crashes
+# 2. Health checks             - frontend waits for backend to be truly healthy
+# 3. Bind-mount only db.json  - no named volume conflict
+# 4. Build args               - Vite env vars baked in at build time
+# 5. Resource limits          - prevent runaway processes eating host RAM/CPU
+# 6. Network isolation        - services on a private internal network
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: asset-guardian-backend
+    volumes:
+      - ./db.json:/data/db.json
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:5000/assets"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 128M
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+      args:
+        VITE_API_URL: /api
+        VITE_ADMIN_PASSWORD: ${VITE_ADMIN_PASSWORD:-admin123}
+        VITE_OPERATOR_PASSWORD: ${VITE_OPERATOR_PASSWORD:-operator123}
+    container_name: asset-guardian-frontend
+    ports:
+      - "9000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 128M
