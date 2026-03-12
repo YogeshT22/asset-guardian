@@ -1,3 +1,5 @@
+<div align="center">
+
 # 🛡️ Asset Guardian - Home Lab & Infrastructure Inventory Manager
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white&style=flat-square) ![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white&style=flat-square) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square) ![React Router](https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white&style=flat-square) ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white&style=flat-square) ![Nginx](https://img.shields.io/badge/Nginx-Hardened-009639?logo=nginx&logoColor=white&style=flat-square)
@@ -7,6 +9,7 @@ A full-stack IT asset inventory manager for tracking servers, workstations, netw
 > **Context:** I already have projects covering CI/CD pipelines, Go load balancers, and Ansible automation. This project's goal was to go deep on the React ecosystem - hooks, context, component architecture, and how a real frontend codebase is structured.
 
 ---
+
 ![Login](src/assets/logo.png)
 
 ## 📸 Screenshots
@@ -16,6 +19,9 @@ A full-stack IT asset inventory manager for tracking servers, workstations, netw
 | ![Login](src/assets/login_page.png) | ![Dashboard](src/assets/dashboard_page.png) |
 
 ---
+
+</div>
+
 ## 🎯 What This Project Covers
 
 This is specifically a **React learning project**. Every decision was made to practice a real pattern - not just to make the app work.
